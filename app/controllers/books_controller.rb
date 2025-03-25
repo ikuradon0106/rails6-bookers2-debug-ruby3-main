@@ -53,5 +53,6 @@ class BooksController < ApplicationController
     if @book.user_id != current_user.id
       redirect_to root_path
     end
+    
   end
 end
