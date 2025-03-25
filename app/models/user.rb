@@ -6,11 +6,9 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
 
-  # belongs_to :book
   has_many :books
   validates :name, length: { minimum: 2, maximum: 20 }, presence: true
-  validates :introduction, presence: true
-
+  validates :introduction, length: {maximum: 50}
 
   
   def get_profile_image
