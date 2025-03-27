@@ -31,13 +31,27 @@
           <% end %>
           </td>
 
-
-          <% if @book.user == current_user %>
-            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
-            <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
-          <% end %>
+          <!-- コメント一覧  -->
+          <td>
+          <%=  "コメント数: #{@book.book_comments.count}" %>
+          </td>
         </tr>
+        
       </table>
+
+        <!-- コメントフォーム -->
+            <%= form_with model: book, book_comments do |f| %>
+              <%= f.text_area :comment, rows:'5', placeholder: "コメントをここに” ,style: "width:100%" %>
+              <%= f.submit "submit" %>
+            <% end %>
+
+        
     </div>
   </div>
 </div>
+
+
+ ## <% if @book.user == current_user %>
+         #   <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
+         #   <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
+         # <% end %>

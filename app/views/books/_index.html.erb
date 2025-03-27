@@ -1,3 +1,5 @@
+<!-- 一覧画面の共有 -->
+
 <table class='table table-hover table-inverse'>
   <thead>
     <tr>
@@ -28,6 +30,11 @@
             ♡<%= book.favorites.count %>
           <% end %>
         <% end %>
+        </td>
+
+<!-- コメント数 -->
+        <td>
+        <%=  "コメント数: #{book.book_comments.count}" %>
         </td>
         
       </tr>
