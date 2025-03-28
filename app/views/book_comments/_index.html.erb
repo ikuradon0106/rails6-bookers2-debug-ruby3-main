@@ -1,4 +1,22 @@
-<%= form_with model: @book_comments  do |f| %>
-  <%= f.text_area :comment, rows:'5', placeholder: "コメントをここに" ,style: "width:100%" %>
-  <%= f.submit "submit" %>
-<% end %>
+<table>
+  <tbody>
+    <% book.book_comment.each do |book_commnt| %>
+      <tr>
+        <td>
+        <%= link_to user_path(book_comment.user) do %>
+          <%= image_tag book.user.profile_image, size:'50x50' %>
+          <%= bokk_commnt.user.name %>
+        <% end %>
+        </td>
+        <td><%= book_comment.comment %></td>
+        <td>
+           <% if book_commnt.user == current_user %>
+              <%= link_to "Destroy", book_book_commnt_path(book,book_commnt), method: :delete, class: "btn btn-sm btn-danger"%></td>
+           <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+        
+            
