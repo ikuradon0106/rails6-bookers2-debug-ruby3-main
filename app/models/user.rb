@@ -8,28 +8,38 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+
   #アソシエーションが繋がっているテーブル名,実際のmodelの名前，外部キーとして何を持つかを表す(フォローした、されたの関係の記述)
   #class_nameでRelationshipテーブルを参照する
-  has_many :follower_relationships , class_name: "Relationship", foreign_key: "follower_id" ,dependent: :destroy
-  has_many :followed_relationships ,class_name: "Relationship", foreign_key: "followed_id" ,dependent: :destroy
-
   #架空のテーブル名,中間テーブル名,実際にデータを取得しに行くテーブル名（2つのテーブルの繋がりを表したい）
   #一覧画面で使用するため、through:でスルーテーブル、source:で参照するカラムを指定する
-  has_many :user_follower, through: :relationships, source: :follower
-  has_many :user_followed, through: :relationships, source: :followed
+
+  # 自分がフォローされる（被フォロー）側の関係性
+  has_many :reverse_of_relationships , class_name: "Relationship", foreign_key: "follower_id" ,dependent: :destroy
+  # 被フォロー関係を通じて参照→自分をフォローしている人
+  has_many :followers, through: :reverse_of_relationships, source: :follower
+
+  # 自分をフォローする（与フォロー）側の関係性
+  has_many :relationships ,class_name: "Relationship", foreign_key: "followed_id" ,dependent: :destroy
+  # 与フォロー関係を通じて参照→自分がフォローしている人
+  has_many :followings, through: :relationships, source: :followed
 
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: {maximum: 50}
 
+  def get_profile_image
+    (profile_image.attached?) ? profile_image : 'no_image.jpg'
+  end
+
   # フォローした時の処理
-  def follow(user_id)
+  def follow(user)
     relationships.create(followed_id: user_id)
   end
 
   # フォローを外す時の処理
-  def unfollow(user_id)
+  def unfollow(user)
     relationships.find_by(follower_id: user_id).destroy
   end
 
@@ -38,7 +48,4 @@ class User < ApplicationRecord
     user_follower.include?(user)
   end
 
-  def get_profile_image
-    (profile_image.attached?) ? profile_image : 'no_image.jpg'
-  end
 end

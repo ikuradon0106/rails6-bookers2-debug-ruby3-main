@@ -13,7 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
- .form-container {
-  width: 100%;
-}
