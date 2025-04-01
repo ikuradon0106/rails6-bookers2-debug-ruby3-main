@@ -11,6 +11,15 @@
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
+
+        <!-- ユーザー一覧画面にフォロー数・フォロワー数・フォローする・外すボタンの設置  -->
+        <td>フォロー数: <%= user.count %></td>
+        <td>フォロワー数: <%= user.count %></td>
+        <td>
+        <% if current_user.following?(current_user) %>
+          <%= form_with model: @,
+
+
         <td><%= link_to 'Show', user %></td>
       </tr>
     <% end %>
