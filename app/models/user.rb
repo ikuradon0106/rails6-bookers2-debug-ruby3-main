@@ -12,7 +12,7 @@ class User < ApplicationRecord
   #アソシエーションが繋がっているテーブル名,実際のmodelの名前，外部キーとして何を持つかを表す(フォローした、されたの関係の記述)
   #class_nameでRelationshipテーブルを参照する
   #架空のテーブル名,中間テーブル名,実際にデータを取得しに行くテーブル名（2つのテーブルの繋がりを表したい）
-  #一覧画面で使用するため、through:でスルーテーブル、source:で参照するカラムを指定する
+  #一覧画面で使用するため、through:でスルーするテーブル、source:で参照するカラムを指定する
 
   # 自分がフォローされる（被フォロー）側の関係性
   has_many :reverse_of_relationships , class_name: "Relationship", foreign_key: "follower_id" ,dependent: :destroy
@@ -35,7 +35,7 @@ class User < ApplicationRecord
 
   # フォローした時の処理
   def follow(user)
-    relationships.create(followed_id: user_id)
+    relationships.create(followed_id: user.id)
   end
 
   # フォローを外す時の処理
@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   # フォローしているかを判定
   def following?(user)
-    user_follower.include?(user)
+    followings.include?(user)
   end
 
 end

@@ -10,14 +10,12 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
   end
 
-  resources :users, only: [:index,:show,:edit,:update]
-end
-
   # ネストさせる
-  resources :users do
+  resources :users, only: [:index,:show,:edit,:update] do
     resource :relationships, only: [:create, :destroy]
-    get 'user_follower' => 'relationships#user_follower' , as: 'user_follower'
-    get 'user_followed' => 'relationships#user_followed' , as: 'user_followed'
+    get 'followings' => 'relationships#followings' , as: 'followings'
+    get 'followers' => 'relationships#followers' , as: 'followers'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+end
