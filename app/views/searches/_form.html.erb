@@ -1,0 +1,13 @@
+<!-- ユーザーがログインしているかどうかチェック→ログインのみ検索フォームを表示 -->
+<% if user_signed_in? %>
+<!-- フォーム作成のメソッド search_path(searches#search)に対してGETメソッドでデータのフォームを送信 -->
+    <%= form_with url:search_path, method: :get, local: true do |f| %>
+<!-- 検索キーワードを入力するための場所を作る contentは検索キーワードのパラメータ名（情報を入れる箱のようなもの） -->  
+      <%= f.text_field :content %>
+<!-- 検索対象のモデルを選択するためのプルダウンメニュー表示 model→選択したモデルのパラメータ名  -->
+      <%= f.select :model, options_for_select({ "User" => "user", "Book" => "book" }) %>
+      <%= f.select :method, options_for_select({ "完全一致" => "perdfect", "前方一致" => "forward","後方一致"=> "backward","部分一致" => "partial" }) %>
+      <%= f.submit "検索" %>
+    <% end %>
+<% end %>
+  

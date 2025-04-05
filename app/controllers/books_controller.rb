@@ -39,21 +39,6 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
-  # 条件方法分岐
-  def self.looks(search, word)
-    if search == "perfect_match"
-      @book = Book.where("title","#{word}")
-    elsif search == "forward_match"
-      @book = Book.where("title","#{word}%")
-    elsif search == "backward_match"
-      @book = Book.where("title","%#{word}")
-    elsif search == "partial_match"
-      @book = Book.where("title","%#{word}%")
-    else
-      @book = Book.all
-    end
-  end
-
   private
 
   def book_params
