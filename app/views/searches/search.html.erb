@@ -1,0 +1,10 @@
+<!-- 検索結果表示画面 -->
+<!-- 変数がuserである場合、ユーザーの検索結果を表示 -->
+<% if @model == 'user' %>
+  <h3>Users search for "<%= @content %>"</h3>
+  <%= render 'users/index', users: @records %>
+<!-- 変数がbookである場合、書籍の検索結果を表示 -->
+<% elsif @model == 'book' %>
+  <h3>Books search for "<%= @content %>"</h3>
+  <%= render 'books/index', books: @records %>
+<% end %>

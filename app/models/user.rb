@@ -48,4 +48,31 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
+  # conentは検索ワード、methodは検索方法
+  def self.search_for(content, method)
+  # 検索方法によって処理を分岐(methodの値によって分岐)
+  # perfect:完全一致（contentと完全一致するものを取得)
+    if method == 'perfect'
+  # Userモデルのnameカラムがcontentと完全一致するレコードを取得
+  # whereメソッド→引数に条件を指定して、レコードを取得するメソッド
+      User.where(name: content)
+  # forward:前方一致（contentで指定された文字列で始まるものを取得)
+    elsif method == 'forward'
+  # Userモデルのnameカラムがcontentで始まるレコードを取得
+  # LIKE演算子を使用して、部分一致検索を行う
+  # LIKE演算子→SQLの構文で、文字列検索において特定のパターンに一致するかどうか判定する
+  # nemeカラムの値がcontentで始まるレコードを取得
+  # LIKE演算子の後に'%'を付けることで、contentで始まる任意の文字列を取得
+      User.where('name LIKE ?', content + '%')
+  # backward:後方一致（contentで指定された文字列で終わるものを取得)
+    elsif method == 'backward'
+  # Userモデルのnameカラムがcontentで終わるレコードを取得
+      User.where('name LIKE ?', '%' + content)
+  # どれにも当てはまらない場合（部分一致）
+    else
+  # Userモデルのnameカラムがcontentを含むレコードを取得
+      User.where('name LIKE ?', '%' + content + '%')
+    end
+  end
+
 end

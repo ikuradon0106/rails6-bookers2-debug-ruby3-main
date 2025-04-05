@@ -12,12 +12,13 @@ class Book < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
 
+  # コードの内容はuser.rbに記述したものと同じ
   def self.search_for(content, method)
     if method == 'perfect'
       Book.where(tiltle: content)
-    elsif metod == 'forward'
+    elsif method == 'forward'
       Book.where('title LIKE ?', content + '%')
-    elsif metod == 'backward'
+    elsif method == 'backward'
       Book.where('title LIKE ?', '%' + content)
     else
       Book.where('title LIKE ?', '%' + content + '%')

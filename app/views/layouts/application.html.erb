@@ -13,6 +13,10 @@
     <%= render 'layouts/header' %>
       <main>
       <p id="notice"><%= notice %></p>
+      <!--  部分テンプレートの呼び出し 
+            d-flex→フレックスコンテナを作成するクラス
+            justify-content-center→フレックスコンテナを水平方向に中央揃えにするクラス
+            mb-2→下部に2単位のマージンを2pxにするクラス -->
       <div class="d-flex justify-content-center mb-2">
         <%= render 'searches/form' %>
       </div>
