@@ -1,3 +1,4 @@
+<!-- コメント一覧 -->
 <table>
   <tbody>
     <% book.book_comments.each do |book_comment| %>
@@ -5,14 +6,15 @@
 
         <td>
         <%= link_to user_path(book_comment.user) do %>
-          <%= image_tag book.user.get_profile_image, size:'50x50' %>
+          <%= image_tag book_comment.user.get_profile_image, size:'50x50' %>
           <%= book_comment.user.name %>
         <% end %>
         </td>
         <td><%= book_comment.comment %></td>
         <td>
            <% if book_comment.user == current_user %>
-              <%= link_to "Destroy", book_book_comment_path(book,book_comment), method: :delete, class: "btn btn-danger pull-right"%></td>
+           <!-- remote: ture→非同期通信を行うためのオプション -->
+              <%= link_to "Destroy", book_book_comment_path(book,book_comment), method: :delete, class: "btn btn-danger pull-right", remote: true %></td>
            <% end %>
         </td>
       </tr>

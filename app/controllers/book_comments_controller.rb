@@ -6,13 +6,13 @@ class BookCommentsController < ApplicationController
     comment = current_user.book_comments.new(book_comment_params)
     comment.book_id = book.id
     comment.save
-    redirect_to request.referer
+    # redirect_to request.referer
   end
 
   def destroy
     # コメントを削除する
     BookComment.find_by(id: params[:id], book_id: params[:book_id]).destroy
-    redirect_to request.referer
+    # redirect_to request.referer
   end
 
   private
@@ -22,3 +22,5 @@ class BookCommentsController < ApplicationController
   end
   
 end
+
+#非同期通信のため、redirect_to request.refererは削除

@@ -22,20 +22,26 @@
           <td><%= render 'favorites/btn' ,book: @book %></td>
 
           <!-- コメント一覧  -->
-          <td>コメント数: <%= @book.book_comments.count %></td>
+          <td id="comment_counter">
+            <%= render 'book_comments/counter', book: @book %>
+          </td>
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class:"btn btn-sm btn-success edit_book_#{@book.id}" %></td>
             <td><%= link_to 'destroy', @book, method: :delete, data:  { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
           <% end %>
         </tr>
-        
       </table>
 
         <!-- コメントフォーム -->
-        <%= render 'book_comments/index', book: @book %>
+        <div id="comment_index">
+          <%= render "book_commnts/index", book: @book %>
+        </div>
         <%= render 'book_comments/form', book: @book, book_comment:@book_comment %>
 
         
     </div>
   </div>
 </div>
+
+<!-- id要素を追加することで、その要素を独自に特定することができる 
+     →ジャバスクリプトのコードは、IDを使って特定の要素にアクセスして操作するため-->

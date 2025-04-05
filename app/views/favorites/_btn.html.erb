@@ -1,10 +1,12 @@
 <% if book.favorited_by?(current_user) %>
-  <%= link_to book_favorites_path(book) , method: :delete, style: "color: red;" do %>
-    <i class="fas fa-heart" aria-hidden="ture"></i>
+<!-- remote: trueで非同期通信を行う -->
+  <%= link_to book_favorites_path(book) , method: :delete, remote: true do %>
+    <i class="fas fa-heart" aria-hidden="ture" style: "color: red;"></i>
     <%= book.favorites.count %>
   <% end %>
   <% else %>
-    <%= link_to book_favorites_path(book), method: :post do %>
+<!-- remote: trueで非同期通信を行う -->
+    <%= link_to book_favorites_path(book), method: :post, remote: true do %>
       <i class="fas fa-heart" aria-hidden="ture"></i>
       <%= book.favorites.count %>
     <% end %>

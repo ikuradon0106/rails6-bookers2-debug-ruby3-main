@@ -1,4 +1,8 @@
-<%= form_with(model: [book, book_comment], local: true)  do |f| %>
-  <%= f.text_area :comment, rows:'5', placeholder: "コメントをここに" ,class: "w-100" %>
+<!-- コメント投稿フォーム -->
+
+<!-- form_withヘルパーでは、local: falseを指定することで、非同期通信を実現 -->
+<%= form_with(model: [book, book_comment], local: false)  do |f| %>
+  <1-- id: "comment_form"を指定することで、commnt_textareaというIDがテキストエリアに割り当てられる -->
+  <%= f.text_area :comment, rows:'5', placeholder: "コメントをここに" ,class: "w-100", id: "comment_textarea" %>
   <%= f.submit "送信" %>
 <% end %>

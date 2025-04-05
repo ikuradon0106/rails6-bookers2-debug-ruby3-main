@@ -1,0 +1,6 @@
+$('#comment_counter').html("<%= j(render 'book_comments/counter', book: @comment.book) %>");
+$('#comment_index').html("<%= j(render 'book_comments/index', book: @comment.book) %>");
+<!--$('#comment_textarea').val("");は、コメントフォームのテキストエリアの値を空にするためのコード
+.val("")とすることで、テキストエリアの値が空文字列に設定される
+このコードを実行することで、コメントの入力欄が空にリセットされ、ユーザーは新しいコメントを入力するために空のフォームから始めることができる -->
+$('#comment_textarea').val("");
