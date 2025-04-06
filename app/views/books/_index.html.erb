@@ -20,13 +20,15 @@
         <td><%= book.body %></td>
 
 <!-- いいね機能  -->
-        <!-- id属性を付与して、非同期通信でいいねの数を更新 -->
+        <!-- classを追加する -->
         <!-- book.id→各本を特定するための識別子 -->
-        <td id="favorite_btn_<%= book.id %>">
-        <%= render "favorites/btn", book: book %></td>
+        <td class="favorite-" + book.id.to_s %> >
+            <%= render "favorites/btn", book: book %>
+        </td>
 
 <!-- コメント数 -->
-        <td>コメント数: <%= book.book_comments.count %></td>
+        <!-- renderメソッドを使用して、部分テンプレートを呼び出す -->
+        <td><%= render "book_comments/counter", book: book %></td>
         
       </tr>
     <% end %>

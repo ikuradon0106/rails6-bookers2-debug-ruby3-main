@@ -1,13 +1,13 @@
 <% if book.favorited_by?(current_user) %>
-<!-- remote: trueで非同期通信を行う -->
+<!-- リンクの非同期化は、remote: trueで非同期通信を行う -->
   <%= link_to book_favorites_path(book) , method: :delete, remote: true do %>
-    <i class="fas fa-heart" aria-hidden="ture" style: "color: red;"></i>
-    <%= book.favorites.count %>
+    <i class="fas fa-heart" aria-hidden="ture" style="color: red;"></i>
+    <%= book.favorites.count %> いいね
   <% end %>
   <% else %>
-<!-- remote: trueで非同期通信を行う -->
+<!-- リンクの非同期化は、remote: trueで非同期通信を行う -->
     <%= link_to book_favorites_path(book), method: :post, remote: true do %>
       <i class="fas fa-heart" aria-hidden="ture"></i>
-      <%= book.favorites.count %>
+      <%= book.favorites.count %> いいね
     <% end %>
 <% end %>
