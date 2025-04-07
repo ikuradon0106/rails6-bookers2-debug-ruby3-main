@@ -5,11 +5,31 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @book_comment = BookComment.new
+
+
   end
 
   def index
+    # BookモデルからすべてのBookレコードを取得
     @books = Book.all
     @book = Book.new
+
+        # 設定しているタイムゾーンを基に現在日時を取得
+        to = Time.current.at_end_of_day
+        # 取得した現在日時から6日前の日時を計算
+        from = (to - 6.days).at_beginning_of_day
+        # 上記を2行を説明すると、一週間分のデータを取ってきたよ
+    
+        # いいねの数をもとにBookを並び替えたい
+        # Bookモデルからすべてのレコードを取得し、関連するFavoriteレコードも同時に読み込む（N+1対策）
+        # 取得したBookを、各Bookに紐づくFavoriteの数で並び替える
+        # sort_byメソッド内で、favorites.where(created_at: from...to) を使って、指定した期間（from〜to）の間に作成されたFavoriteの数を取得
+        # sizeメソッドでその数を取得し、それを基準に並び替え
+        # 最後にreverseで降順（いいね数が多い順）にする
+        @books = Book.includes(:favorites).sort_by {|x|
+        x.favorites.where(created_at: from...to).size
+      }.reverse
+
   end
 
   def create

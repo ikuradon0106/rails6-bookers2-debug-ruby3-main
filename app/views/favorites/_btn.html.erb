@@ -5,6 +5,7 @@
     <%= book.favorites.count %> いいね
   <% end %>
   <% else %>
+
 <!-- リンクの非同期化は、remote: trueで非同期通信を行う -->
     <%= link_to book_favorites_path(book), method: :post, remote: true do %>
       <i class="fas fa-heart" aria-hidden="ture"></i>
