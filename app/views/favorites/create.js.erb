@@ -1,8 +1,0 @@
-<!-- $("#favorite_btn_<%= @book.id %>")は、JavaScriptのセレクタを使用して特定の要素を選択しています
-セレクタとは、HTMLのid属性を使用して要素を特定しています
-@book.id→現在の本のIDを参照しており、セレクタはidはfavorite_btn_〇〇」という要素を選択します。
-ここで〇〇は実際の本のIDに置き換えられます。
-.html(...)→選択した要素のHTMLコンテンツを変更するためのコード
-部分テンプレート(render)に@bookを渡し、'favorites/btn'という部分テンプレートを呼び出す -->
-
-$("#favorite_btn_<%= @book.id %>").html("<%= j(render 'favorites/btn', book: @book) %>");

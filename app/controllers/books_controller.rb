@@ -10,26 +10,30 @@ class BooksController < ApplicationController
   end
 
   def index
-    # BookモデルからすべてのBookレコードを取得
-    @books = Book.all
-    @book = Book.new
-
-        # 設定しているタイムゾーンを基に現在日時を取得
-        to = Time.current.at_end_of_day
-        # 取得した現在日時から6日前の日時を計算
-        from = (to - 6.days).at_beginning_of_day
-        # 上記を2行を説明すると、一週間分のデータを取ってきたよ
+    # 設定しているタイムゾーンを基に現在日時を取得
+    to = Time.current.at_end_of_day
+    # 取得した現在日時から6日前の日時を計算
+    from = (to - 6.days).at_beginning_of_day
+    # 上記を2行を説明すると、一週間分のデータを取ってきたよ
     
-        # いいねの数をもとにBookを並び替えたい
-        # Bookモデルからすべてのレコードを取得し、関連するFavoriteレコードも同時に読み込む（N+1対策）
-        # 取得したBookを、各Bookに紐づくFavoriteの数で並び替える
-        # sort_byメソッド内で、favorites.where(created_at: from...to) を使って、指定した期間（from〜to）の間に作成されたFavoriteの数を取得
-        # sizeメソッドでその数を取得し、それを基準に並び替え
-        # 最後にreverseで降順（いいね数が多い順）にする
-        @books = Book.includes(:favorites).sort_by {|x|
-        x.favorites.where(created_at: from...to).size
-      }.reverse
+    # いいねの数をもとにBookを並び替えたい
+    # Bookモデルからすべてのbookレコードを取得し、@booksインスタンス変数に格納
 
+    # .sortメソッド（配列（またはリスト）の中身を順番に並び替えるメソッド）を使って、取得したBookを並び替え
+    # {}の中で何を基準に並び変えるかを設定、この場合favorite(いいね)の数で並べる
+    # aとbはそれぞれ比較対象のbookを表す変数（a は配列の最初の本、b はその次の本。aとbの違いを比較して、順番を決める。）
+    #.where→条件に合ったデータだけを取得する」
+    # created_at: from...to は「作成日時が from から to の間にあるものだけ」を取得する条件
+    # .size→取得したデータの件数（今回はいいねの数）を取得するメソッド
+
+    # <=>はRubyの比較演算子で、左側の値が小さい場合は-1、大きい場合は1、等しい場合は0を返す
+    # つまり、aとbのfavoriteの数を比較して、aがbよりも少ない場合は-1を返し、aがbよりも多い場合は1を返す
+    @books = Book.all.sort {|a,b|
+      b.favorites.where(created_at: from...to).size <=> 
+      a.favorites.where(created_at: from...to).size
+      }
+
+    @book = Book.new 
   end
 
   def create

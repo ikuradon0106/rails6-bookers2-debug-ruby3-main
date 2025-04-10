@@ -13,7 +13,7 @@
         <td><%= book_comment.comment %></td>
         <td>
            <% if book_comment.user == current_user %>
-           <!-- remote: ture→非同期通信を行うためのオプション -->
+           <!-- remote: true→非同期通信を行うためのオプション -->
               <%= link_to "Destroy", book_book_comment_path(book,book_comment), method: :delete, class: "btn btn-danger pull-right", remote: true %></td>
            <% end %>
         </td>

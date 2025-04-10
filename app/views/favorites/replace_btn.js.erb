@@ -1,13 +1,13 @@
-$('.favorite-<%= @favorite.book_id %>').html("%= j(render 'favorites/btn', book: @favorite.book) %>");
+$('.favorite-<%= @favorite.book_id %>').html("<%= j(render 'favorites/btn',  book: @favorite.book ) %>")
 
 
-<%# 前半の$('.favorite-<%= @favorite.book_id %>')についての解説 %>
-<%# <%= %>を用いて、@favorite（davoritecontrollerのcreateアクションで定義）.idを埋め込む %>
-<%# $()のカッコ内のことをセレクタという %>
-<%# 今回は、idが@favorite.book_〇〇要素の中のfavoriteクラスの要素を指す %>
+// 前半の$('.favorite-<%= @favorite.book_id %>')についての解説
+// <%= %>を用いて、@favorite（davoritecontrollerのcreateアクションで定義）.idを埋め込む
+// $()のカッコ内のことをセレクタという %>
+// 今回は、idが@favorite.book_〇〇要素の中のfavoriteクラスの要素を指す
 
-<%# 後半の.html()は、対象のセレクタの子要素（内容）をカッコ内のものに変更
-その要素の中に、renderメソッドを用いて、favorites/btnの部分テンプレートを埋め込む
-j()は、escape_javascript()の省略形 %>
+// 後半の.html()は、対象のセレクタの子要素（内容）をカッコ内のものに変更
+// その要素の中に、renderメソッドを用いて、favorites/btnの部分テンプレートを埋め込む
+// j()は、escape_javascript()の省略形
 
-<%# creteアクションを通って最新の状態になった@favoriteを使って、いいねボタンの箇所を部分テンプレートで書き換える、という動作 %>
+// creteアクションを通って最新の状態になった@favoriteを使って、いいねボタンの箇所を部分テンプレートで書き換える、という動作

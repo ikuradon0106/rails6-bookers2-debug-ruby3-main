@@ -1,8 +1,8 @@
-<%# $('#comment_textarea').val("")は、コメントフォームのテキストエリアの値を空にするためのコード
-.val("")とすることで、空に書き換えることができる
-つまり、コメントフォームを空にする挙動を示す %>
+// $('#comment_textarea').val("")は、コメントフォームのテキストエリアの値を空にするためのコード
+// .val("")とすることで、空に書き換えることができる
+// つまり、コメントフォームを空にする挙動を示す
 $('#comment_textarea').val("")
 
-$('#.book-comments-counter').html("<%= j(render 'book_comments/counter', book: @comment.book) %>")
-$('#book-comments-index').html("<%= j(render 'book_comments/index', book: @comment.book) %>")
+$('.book-comments-counter').html("<%= j(render 'book_comments/counter', book: @comment.book) %>")
+$('.book-comments-index').html("<%= j(render 'book_comments/index', book: @comment.book) %>")
 
